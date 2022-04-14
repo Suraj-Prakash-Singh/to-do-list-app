@@ -37,11 +37,40 @@ addForm.addEventListener('submit',function(e){
     taskname.textContent = value;
     delbtn.textContent = 'Delete';
 
-    //3. Append elements to the DOM
+    //3. Add classes
+    taskname.classList.add('name');
+    delbtn.classList.add('delete');
+
+    //4. Append elements to the DOM
     l.appendChild(taskname);
     l.appendChild(delbtn);
     list.appendChild(l);
-
 })
 
+// hide tasks
+const hideBox = document.querySelector('#hide');
+hideBox.addEventListener('change',function(e){
+    if(e.target.checked){
+        list.style.display = "none";
+    }
+    else{
+        list.style.display = "initial";
+    }
+})
+
+//filter tasks
+const searchBar = document.forms['search-books'].querySelector('input');
+searchBar.addEventListener('keyup',function(e){
+    const term = e.target.value.toLowerCase();
+    const tasks = list.getElementsByTagName('li');
+    Array.from(tasks).forEach(function(element){
+        const title = element.firstElementChild.textContent;
+        if(title.toLowerCase().indexOf(term)!=-1){
+            element.style.display = "block";
+        }
+        else{
+            element.style.display = "none";
+        }
+    });
+})
     
